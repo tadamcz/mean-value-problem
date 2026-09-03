@@ -1,0 +1,134 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4 (mathlib-initiative format, Palomar registry rules).
+version: v0.4
+project:
+  name: 'Smale''s mean value conjecture (K = 1): disproof'
+  description: 'Disproof of Smale''s mean value conjecture with constant K = 1: there is a complex polynomial p
+    of degree at least 2 and a point z such that every critical point c of p has |p(z) − p(c)|/|z − c| > |p''(z)|.
+    Found autonomously by GPT-6 Astra in an Epoch AI evaluation run over the open problems of Formal Conjectures''
+    Wikipedia collection.'
+  authors:
+  - name: Tom Adamczewski
+    github: tadamcz
+    orcid: https://orcid.org/0000-0001-6772-1185
+  license: Apache-2.0
+  responsible_maintainers:
+  - name: Tom Adamczewski
+    github: tadamcz
+    orcid: https://orcid.org/0000-0001-6772-1185
+classification:
+  arxiv:
+  - math.CV
+  msc2020:
+  - 30C10
+  - 30C15
+sources:
+- title: 'Smale''s mean value conjecture (K = 1): disproof'
+  type: original-proof
+  relationship: other
+  note: This formalization is the first presentation of the result. The Lean proof was found by a pre-release version
+    of GPT-6 Astra working autonomously in Epoch AI's LeanOpenProblems harness; no human wrote or steered the proof.
+    The proof has been machine-checked but not yet examined in depth by human experts; novelty of its ideas relative
+    to the literature has not been established.
+- title: Smale's mean value conjecture (K = 1) (Wikipedia)
+  type: web discussion
+  id: https://en.wikipedia.org/wiki/Mean_value_problem
+  location: https://en.wikipedia.org/wiki/Mean_value_problem
+  relationship: background
+  note: The problem page the Formal Conjectures statement cites.
+- title: The fundamental theorem of algebra and complexity theory
+  authors:
+  - Steve Smale
+  type: paper
+  location: Bull. Amer. Math. Soc. (N.S.) 4 (1981), no. 1, pp. 1–36
+  id: https://doi.org/10.1090/S0273-0979-1981-14858-8
+  relationship: background
+  note: Origin of the mean value conjecture; proves the inequality with constant 4.
+- title: Critical points and values of complex polynomials
+  authors:
+  - David Tischler
+  type: paper
+  location: J. Complexity 5 (1989), no. 4, pp. 438–456
+  id: https://doi.org/10.1016/0885-064X(89)90019-8
+  relationship: background
+  note: The conjecture with constant (d−1)/d for polynomials with all roots real or of equal modulus.
+- title: Smale's mean value conjecture and the hyperbolic metric
+  authors:
+  - Alan F. Beardon
+  - David Minda
+  - T. W. Ng
+  type: paper
+  location: Math. Ann. 322 (2002), no. 4, pp. 623–632
+  id: https://doi.org/10.1007/s002080100276
+  relationship: background
+  note: Improvement of Smale's constant to 4 − O(1/d).
+related_formalizations:
+- id: https://github.com/google-deepmind/formal-conjectures/blob/9cbe1d3c12998c786b7c2cd99ce28a21b6631f66/FormalConjectures/Wikipedia/MeanValueProblem.lean
+  relationship: builds-on
+  note: Formal Conjectures states the conjecture with `sorry` as an open problem; the definitions and statement
+    here are copied verbatim from this file at this commit, and the compared theorem is its negation, proved.
+- id: https://github.com/epoch-research/LeanOpenProblems/blob/0ef96d7b12cfa96a93761b4bba1c635f4546c5ca/apn/data/wikipedia/Isolated/MeanValueProblem.mean_value_problem.lean
+  relationship: builds-on
+  note: The isolated statement file given to the AI system (the Formal Conjectures statement with a `.disproof`
+    negation appended).
+status:
+  scope: 'Fully formalized: the compared theorem `MeanValueProblem.mean_value_problem.disproof` in `Challenge.lean`
+    is proved in `Solution.lean` via the imported module `MeanValueProblem.Resolutions.MeanValueProblem` with no
+    `sorry` and no axioms beyond propext, Quot.sound and Classical.choice. Only the negation of the formal conjecture
+    is advertised; stronger or more specific facts visible in the proof are not part of the compared statement.'
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+automation:
+  methods:
+  - method: autonomous
+    models:
+    - GPT-6 Astra (pre-release version, OpenAI)
+    framework: Inspect AI (UK AISI) with the LeanOpenProblems task harness; deepagent-based agent
+    tool_setup: 'The model worked alone in a Docker container without network access, with bash, a text editor,
+      a resource-budget tool, a Lean 4 toolchain (v4.27.0) with Mathlib (via Formal Conjectures at commit 9cbe1d3c1299),
+      SageMath, Python (sympy, mpmath, numpy, pantograph), subagents, persistent memory and a todo list; no literature
+      snapshot. Its submission was checked in a separate pristine container by Comparator (Lean FRO) against the
+      trusted statement, permitting only the three standard axioms. Budget: $1,000 and 96 hours of working time
+      per statement, one attempt.'
+    prompting_notes: 'Fixed task prompt from the harness (apn/prompts.py in LeanOpenProblems): settle the conjecture
+      in Spec.lean by filling the `sorry` of either the statement or its `.disproof` negation without altering either
+      statement or the imports, using only the permitted axioms; a description of the available tools; and general
+      encouragement that open conjectures are not infeasible. No problem-specific hints or human interaction.'
+  notes: 'The Lean development was written entirely by the AI system inside the harness, in the evaluation run `wikipedia-vega-1000usd`
+    of Epoch AI''s LeanOpenProblems harness (2026-09), in which a pre-release version of GPT-6 Astra attempted,
+    autonomously and once each, all 222 research-open statements of the `Wikipedia` collection of Formal Conjectures
+    under a budget of $1,000 and 96 hours of working time per statement. Tom Adamczewski ran the harness and packaged
+    the verified output into this repository. The only edits to the AI-written file are mechanical and are listed
+    in the README: removed the sorry''d stub of the original conjecture `mean_value_problem` (lines 27–33 of the
+    original) together with its docstring; restated `MeanValueProblem.mean_value_problem.disproof` explicitly (the
+    original used `¬ (type_of% @MeanValueProblem.mean_value_problem)`, which referenced the removed stub) and added
+    a docstring.'
+fidelity:
+  divergences: 'The compared theorem is exactly the negation of the Formal Conjectures statement, restated explicitly:
+    for every `p : Polynomial ℂ` with `2 ≤ p.degree`, every `z : ℂ` and every `K : ℝ`, there is `c` with `p.derivative.eval
+    c = 0` and `‖p.eval z - p.eval c‖ / ‖z - c‖ ≤ ‖p.derivative.eval z‖`. The parameter `K` is unused in the Formal
+    Conjectures statement (the constant is fixed at 1). Lean''s convention `x / 0 = 0` makes the case `p''(z) =
+    0` hold trivially with `c = z`, so the formal conjecture is if anything weaker than the informal one; the counterexample
+    uses `z = 0` with `p''(0) = 1`, so it refutes the informal conjecture as stated in the literature.'
+review:
+  status: 'mechanically verified (Comparator: Lean kernel replay, standard axioms only) in the harness and again
+    in this repository''s CI; no human mathematical review yet'
+  reviewers:
+  - none
+  notes: 'Statement audit: the statement is Formal Conjectures'' formalization of the problem, taken as is; its
+    correspondence to the informal problem is discussed in fidelity.divergences and the README. Mathematical review:
+    none beyond mechanical verification; the informal proof account in the README was machine-generated from the
+    Lean proof and has not been checked by a human expert.'
+alignment:
+  namespace: MeanValueProblem
+  statements:
+  - source: 'Formal Conjectures `FormalConjectures/Wikipedia/MeanValueProblem.lean` (Wikipedia: https://en.wikipedia.org/wiki/Mean_value_problem)'
+    lean: MeanValueProblem.mean_value_problem.disproof
+    module: Challenge
+    status: proved
+    note: The compared theorem is the negation of the formal conjecture; proving it disproves the conjecture. Its
+      exact text is identical to the benchmark statement (Comparator enforces this against the imported proof module).
+acknowledgements: Lean 4, Mathlib and the Lean FRO's Comparator; Google DeepMind's Formal Conjectures project for
+  the formal statement; Epoch AI for the compute and evaluation infrastructure; OpenAI for pre-release access to
+  GPT-6 Astra; the Palomar registry template for the repository layout.

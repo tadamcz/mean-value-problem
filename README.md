@@ -6,8 +6,7 @@
 
 Machine-checked disproof of the [Smale's mean value conjecture (K = 1)](https://en.wikipedia.org/wiki/Mean_value_problem) in Lean 4 with Mathlib, found autonomously by a
 pre-release version of **GPT-6 Astra** (OpenAI) in an evaluation run by Epoch AI over the open problems of Formal Conjectures'
-Wikipedia collection. The repository packages the AI-written proof for the [Palomar registry](https://palomar-registry.org/):
-`Challenge.lean` is the small statement a reader audits, `Solution.lean` proves it, and
+Wikipedia collection. In this repository, `Challenge.lean` is the small statement a reader audits, `Solution.lean` proves it, and
 [Comparator](https://github.com/leanprover/comparator) checks that the two statements coincide and that only the standard axioms
 are used.
 
@@ -87,13 +86,13 @@ normalising `p'(0) = 1` yields `exists_allBadWitness`; `weak_mean_value_false` d
 - `formalization.yaml` — structured metadata (provenance, sources, classification, automation, review) in the mathlib-initiative v0.4 format.
 - `provenance/` — SHA-256 of the run's output file and the unified diff from it to the module here.
 - `scripts/verify-comparator.sh` runs the pinned Comparator, lean4export, NanoDa and Landrun locally (Linux); `scripts/validate-formalization.rb` checks the metadata file.
-- `.github/workflows/ci.yml` — builds the project and runs Comparator (layout from the Palomar template; the template's doc-gen4 job is omitted because the module imports all of Mathlib).
+- `.github/workflows/ci.yml` — builds the project and runs Comparator.
 
 ## Edits relative to the run's output
 
 The proof module is the model's final `Spec.lean`, verified in the harness, with only the following mechanical changes (exact diff in
 `provenance/`; SHA-256 of the original: `78e412449a61946b56fa1c5965bf9d00bea93c5dc18ae3831566b09cc947e5eb`). The toolchain was moved from Lean v4.27.0 / Mathlib (via Formal Conjectures at commit
-`9cbe1d3c`) to Lean v4.28.0 / Mathlib v4.28.0, the oldest release Palomar accepts.
+`9cbe1d3c`) to Lean v4.28.0 / Mathlib v4.28.0.
 
 - line 1: `import FormalConjecturesUtil` → `import Mathlib`
 - removed the sorry'd stub of the original conjecture `mean_value_problem` (lines 27–33 of the original) together with its docstring
@@ -109,8 +108,7 @@ ruby scripts/validate-formalization.rb
 ```
 
 CI runs the same checks. The compared theorem depends on no `sorry` and on no axioms beyond `propext`, `Quot.sound` and
-`Classical.choice`. This repository is prepared for submission to Palomar through the
-[submission form](https://submit.palomar-registry.org/) with the full commit SHA; registration is a separate step by the maintainer.
+`Classical.choice`.
 
 ## Licence and attribution
 
